@@ -1,0 +1,29 @@
+{
+  "name": "best-loan",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "lint": "standard lib/*.js",
+    "test": "npm run lint && jest --coverage",
+    "test:watch": "jest --watchAll",
+    "clean": "rm -rf dist coverage",
+    "build": "npm run clean && npm run build:loan && npm run build:loanToHtml && npm run min",
+    "build:loan": "rollup lib/loan.js --name loan --format iife --output dist/loan.js && babel -o dist/loan.js dist/loan.js",
+    "build:loanToHtml": "rollup lib/loanToHtmlTable.js --name loanToHtmlTable --format iife --output dist/loanToHtmlTable.js && babel -o dist/loanToHtmlTable.js dist/loanToHtmlTable.js",
+    "min": "npm run min:loan && npm run min:loanToHtml",
+    "min:loan": "uglifyjs dist/loan.js -c -m -o dist/loan.min.js",
+    "min:loanToHtml": "uglifyjs dist/loanToHtmlTable.js -c -m -o dist/loanToHtmlTable.min.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "interestjs": "^0.1.0",
+    "loanjs": "^1.0.2"
+  },
+  "devDependencies": {
+    "jest": "^21.2.1",
+    "rollup": "^0.50.0"
+  }
+}
